@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+      <link rel="stylesheet" href="styles.css">
+
+      <title>Projeto</title>
+  </head>
+
+  <body>
+    <!-- Cabeçalho de informações do sistema -->
+    <header>
+      <div class="title">
+        <h2>PUC RIO - Curso Engenharia De Software</h2>
+        <h2>Sprint 1: Lista de compras</h2>
+      </div>
+    </header>
+
+    <div id="menuContainer" class="container justify-content-md-center" style="background-color: #dee2e6;padding-top: 3px;padding-bottom: 3px;">
+      <section id="menu" class="menu">
+        <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+          <div class="col col-lg-8" >
+            <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link active rounded-5" id="btComprar" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" onclick="hendleShoping()">Produtos</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link rounded-5" id="cadastrar-roduto" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" onclick="hendleProduct()">Cadastrar Produto</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="deletar-roduto" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" onclick="hendleDeleteProduct()">Deletar Produto</button>
+              </li>
+              <!--
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Comentários</button>
+                </li>
+              -->
+          </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="shopping" class="container justify-content-md-center" style="background-color: #dee2e6;padding-bottom: 3px;">
+      <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+        <div class="col col-lg-8" >
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Comprar produto</h5>
+              <p class="card-text">Você pode selecionar e adicionar os produtos na cesta, depois conferir os itens selecionado e confirmar a compra.</p>
+            </div>
+            <div class="card-body">
+              <section id="productSarch" class="productSarch">
+                <div class="row g-3" style="background-color: #dee2e6;margin-top: 1px;margin-bottom:10px;padding-bottom: 10px;">
+                  <div class="col-sm-8">
+                    <input id="idSarch" type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" onkeyup="handleSarchProduct()">
+                  </div>
+                </div>
+              </section>
+              
+              <section id="listProductTable" class="listProductTable">
+                <table id="productTable" class="table table-hover" style="background-color: #FFF;">
+                  <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
+                    <th>Selecinar</th>
+                  </tr>
+                </table>
+              </section>
+        
+              <section id="listSelectedItems" class="listSelectedItems">
+                <div id="selectedItems" style="display:none" >
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">Produtos selecionados</h5>
+                      <p class="card-text">Confira seus itens e envie o pedido clicando no botão confirma.</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="row" style="margin-bottom: 10px; width: 100%;">
+                        <div class="col" >
+                          <table id="itemsTable" class="table table-hover" style="background-color: #FFF;padding: 20px;">
+                            <tr>
+                              <th>Código</th>
+                              <th>Nome</th>
+                              <th>Quantidade</th>
+                              <th>Valor</th>
+                              <th>Selecinar</th>
+                            </tr>
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                      <button type="button" class="btn btn-primary" onclick="hendleConfirmar()">Confirmar pedido</button>
+                    </div>
+                  </div>
+                </div>  
+                <div class="row justify-content-md-center">
+                </div>
+              </section>
+            </div>
+            <div class="card-footer text-muted"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="product" class="container justify-content-md-center" style="background-color: #dee2e6;padding-bottom: 3px;">
+      <section class="addProduct">
+        <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+          <div class="col col-lg-8" >
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Cadastrar editar produto</h5>
+                <p class="card-text">Você pode adicionar, alterar e/ou remover produto.</p>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-bottom: 10px; width: 100%;">
+                  <div class="col" >
+                    <form class="row g-2">
+                      <div class="col-auto">
+                        <label for="inputName" class="visually-hidden">Nome</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="Adicionar novo item:">
+                      </div>
+                      <div class="col-auto">
+                        <label for="inputQuantity" class="visually-hidden">Quantidade</label>
+                        <input type="text" class="form-control" id="inputQuantity" placeholder="Quantidade:" onkeyup="handleInputQuantity()">
+                      </div>
+                      <div class="col-auto">
+                        <label for="inputPrice" class="visually-hidden">Valor</label>
+                        <input type="text" class="form-control" id="inputPrice" placeholder="Valor:" onkeyup="handleInputPrice()">
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-primary mb-3" onclick="handleProductSave()">Confirmar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-muted"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="productDelete" class="container justify-content-md-center" style="background-color: #dee2e6;padding-bottom: 3px;">
+      <section class="addProduct">
+        <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+          <div class="col col-lg-8" >
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Excluir produto</h5>
+                <p class="card-text">Selecione o produto que deseja excluir e click no botão confirmar.</p>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-bottom: 10px; width: 100%;">
+                  <div class="col" >
+                    <form class="row g-2">
+                      <div class="col-auto">
+                        <label for="inputId" class="visually-hidden">Código:</label>
+                        <input type="text" class="form-control" id="inputId" placeholder="Código:" onkeyup="handleInputProductId()">
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-primary mb-3" onclick="handleProductDelete()">Confirmar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-muted"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
+
+
